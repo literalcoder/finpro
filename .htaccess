@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteRule ^$ index2.php?page=$1 [L,QSA]
+
+# Block direct access to any PHP file inside the modules directory
+RewriteRule ^modules/.*\.php$ - [F,L]

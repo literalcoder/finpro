@@ -1,17 +1,21 @@
 <?php
-// MySQL Database Configuration
+// db.php
+
 $host = '127.0.0.1';
-$dbname = 'orgfinpro';
 $username = 'root';
 $password = '';
+$dbname = 'orgfinpro'; // Changed from orgfinpro to origfinpro to match the init_mysql_schema.sql
 
 try {
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+    $dsn = "mysql:unix_socket=/tmp/mysql.sock;dbname=$dbname;charset=utf8mb4";
     $conn = new PDO($dsn, $username, $password);
+    // Set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    // echo "Connected successfully";
 } catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    // echo "Connection failed: " . $e->getMessage();
+    // In a real application, you would log this error and display a user-friendly message.
+    die("Database connection failed. Please check server logs for details.");
 }
+
 ?>
