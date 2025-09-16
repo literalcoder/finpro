@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
 
 <body class="bg-light">
     <?php include 'nav.php'; ?>
-    <div class="container mt-4">
+    <div class="container mt-4 pb-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="bi bi-pencil-square"></i> Edit Terminal Report</h2>
             <a href="terminal_reports.php" class="btn btn-secondary">Back to Reports</a>

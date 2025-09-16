@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-light">
 <?php include 'nav.php'; ?>
-<div class="container mt-4">
+<div class="container mt-4 pb-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="bi bi-receipt"></i> Upload Liquidation</h2>
         <a href="treasurer_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>

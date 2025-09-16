@@ -44,7 +44,7 @@ $balance = $total_income - $total_expenses;
 <body class="bg-light">
 <?php include 'nav.php'; ?>
 
-<div class="container mt-4">
+<div class="container mt-4 pb-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="bi bi-graph-up"></i> Financial Reports</h2>
         <button onclick="window.print()" class="btn btn-primary">

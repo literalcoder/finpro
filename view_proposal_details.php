@@ -57,7 +57,7 @@ if (hasRole('president') && isset($_POST['update_status']) && isset($_POST['new_
 
 <body class="bg-light">
     <?php include 'nav.php'; ?>
-    <div class="container mt-4">
+    <div class="container mt-4 pb-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="bi bi-file-earmark-text"></i> Proposal Details</h2>
             <div>

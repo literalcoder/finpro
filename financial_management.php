@@ -55,11 +55,10 @@ if ($action === 'list') {
 
 <body class="bg-light">
   <?php include 'nav.php'; ?>
-  <div class="container mt-4">
+  <div class="container mt-4 pb-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2><i class="bi bi-cash-stack"></i> Financial Management</h2>
       <div>
-        <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
         <?php if ($action !== 'add'): ?>
           <a href="?action=add" class="btn btn-primary">Add Transaction</a>
         <?php endif; ?>

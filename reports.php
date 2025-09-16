@@ -70,10 +70,9 @@ $proposal_data = getProposalData($org_id);
 
 <body class="bg-light">
     <?php include 'nav.php'; ?>
-    <div class="container mt-4">
+    <div class="container mt-4 pb-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="bi bi-graph-up"></i> Reports & Analytics</h2>
-            <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
         </div>
 
         <!-- Report Type Tabs -->

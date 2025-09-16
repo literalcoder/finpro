@@ -39,11 +39,11 @@ $proposals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="bg-light">
   <?php include 'nav.php'; ?>
-  <div class="container mt-4">
+  <div class="container mt-4 pb-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2><i class="bi bi-file-earmark-text"></i> Proposals</h2>
       <div>
-        <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+
         <?php if (hasAnyRole(['president', 'treasurer'])): ?>
           <a href="create_proposal.php" class="btn btn-primary">Create New Proposal</a>
         <?php endif; ?>
