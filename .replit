@@ -1,10 +1,10 @@
-modules = ["php-8.2", "postgresql-16"]
+modules = ["php-8.2"]
 [agent]
 expertMode = true
 
 [nix]
 channel = "stable-25_05"
-packages = ["sqlite"]
+packages = ["sqlite", "mysql84"]
 
 [workflows]
 runButton = "Project"
@@ -24,11 +24,40 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "php -S 0.0.0.0:5000 -t origfinpro"
+args = "mysqld & php -S 0.0.0.0:5000 -t origfinpro"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[[workflows.workflow]]
+name = "Start MySQL Server"
+author = 47641685
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mkdir -p /tmp/mysql"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mariadb-install-db --datadir=/tmp/mysql --user=$(whoami)"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysqld_safe --datadir=/tmp/mysql --socket=/tmp/mysql.sock --port=3306 &"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "sleep 5"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysql -S /tmp/mysql.sock -e \"CREATE DATABASE IF NOT EXISTS origfinpro;\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysql -S /tmp/mysql.sock origfinpro < origfinpro/init_mysql_schema.sql"
 
 [[ports]]
 localPort = 5000
