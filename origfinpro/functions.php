@@ -49,7 +49,7 @@ function logout() {
     exit();
 }
 
-function register($name, $email, $password, $role = 'president', $org_id = null) {
+function register($name, $email, $password, $role = 'president', $org_name = null) {
     global $conn;
     
     // Check if email already exists
@@ -60,9 +60,20 @@ function register($name, $email, $password, $role = 'president', $org_id = null)
     }
     
     // Server-side role validation - prevent privilege escalation
-    $allowedRoles = ['president', 'treasurer', 'auditor', 'adviser', 'dean'];
+    $allowedRoles = ['president', 'treasurer', 'auditor', 'adviser', 'dean', 'ssc', 'admin'];
     if (!in_array($role, $allowedRoles)) {
         $role = 'president'; // Default to safe role
+    }
+    
+    // Find organization ID by name if provided
+    $org_id = null;
+    if ($org_name) {
+        $stmt = $conn->prepare("SELECT id FROM organizations WHERE name = ? OR code = ? LIMIT 1");
+        $stmt->execute([$org_name, $org_name]);
+        $org = $stmt->fetch();
+        if ($org) {
+            $org_id = $org['id'];
+        }
     }
     
     // Hash password securely

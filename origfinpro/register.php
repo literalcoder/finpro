@@ -58,12 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="mb-3">
         <select class="form-control" name="role" required>
           <option value="">-- Select Role --</option>
-          <option value="President">President</option>
-          <option value="Treasurer">Treasurer</option>
-          <option value="Auditor">Auditor</option>
-          <option value="Adviser">Adviser</option>
-          <option value="Dean">Dean</option>
-          <option value="SSC">SSC</option>
+          <option value="president">President</option>
+          <option value="treasurer">Treasurer</option>
+          <option value="auditor">Auditor</option>
+          <option value="adviser">Adviser</option>
+          <option value="dean">Dean</option>
+          <option value="ssc">SSC</option>
         </select>
       </div>
       <div class="mb-3">
