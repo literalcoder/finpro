@@ -1,4 +1,3 @@
-<!-- register.php -->
 <?php
 include 'functions.php';
 

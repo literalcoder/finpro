@@ -34,4 +34,22 @@ function logout() {
     header("Location: login.php");
     exit();
 }
+
+function register($name, $email, $password, $role, $organization = null) {
+    global $conn;
+    
+    // Check if email already exists
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
+    $stmt->execute([$email]);
+    if ($stmt->fetch()) {
+        return false; // Email already exists
+    }
+    
+    // Insert new user (organization column doesn't exist in current schema)
+    $hashedPassword = md5($password);
+    $sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    
+    return $stmt->execute([$name, $email, $hashedPassword, $role]);
+}
 ?>

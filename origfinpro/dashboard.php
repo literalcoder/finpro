@@ -1,4 +1,3 @@
-<!-- dashboard.php -->
 <?php
 include 'functions.php';
 requireLogin();

@@ -1,27 +1,17 @@
 <?php
-session_start();
-include 'db.php'; // contains $conn (MySQLi)
+include 'functions.php';
+requireLogin();
 
 // Check if org_id exists in session
-if (!isset($_SESSION['org_id'])) {
-    die("Organization ID not found. Please log in again.");
-}
+$org_id = $_SESSION['org_id'] ?? 1; // default to 1 for now
 
-$org_id = $_SESSION['org_id'];
-
-// Prepare and execute query
+// Prepare and execute query using PDO
+global $conn;
 $stmt = $conn->prepare("SELECT * FROM proposals WHERE org_id = ? ORDER BY created_at DESC");
-$stmt->bind_param("i", $org_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$stmt->execute([$org_id]);
 
 // Fetch all proposals
-$proposals = [];
-while ($row = $result->fetch_assoc()) {
-    $proposals[] = $row;
-}
-
-$stmt->close();
+$proposals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,12 +41,12 @@ $stmt->close();
               <td><?= htmlspecialchars($p['title']) ?></td>
               <td><?= htmlspecialchars($p['type']) ?></td>
               <td>
-                <span class="badge bg-<?= $p['status']=='Approved'?'success':($p['status']=='Rejected'?'danger':'warning') ?>">
-                  <?= htmlspecialchars($p['status']) ?>
+                <span class="badge bg-<?= ($p['status'] ?? 'Pending') == 'Approved' ? 'success' : (($p['status'] ?? 'Pending') == 'Rejected' ? 'danger' : 'warning') ?>">
+                  <?= htmlspecialchars($p['status'] ?? 'Pending') ?>
                 </span>
               </td>
-              <td><?= htmlspecialchars($p['current_approver']) ?></td>
-              <td><?= htmlspecialchars($p['created_at']) ?></td>
+              <td><?= htmlspecialchars($p['current_approver'] ?? 'N/A') ?></td>
+              <td><?= htmlspecialchars($p['created_at'] ?? date('Y-m-d H:i:s')) ?></td>
             </tr>
           <?php endforeach; ?>
         <?php else: ?>
@@ -66,6 +56,10 @@ $stmt->close();
         <?php endif; ?>
       </tbody>
     </table>
+  </div>
+  <div class="mt-3">
+    <a href="create_proposal.php" class="btn btn-primary">Create New Proposal</a>
+    <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
   </div>
 </div>
 </body>
