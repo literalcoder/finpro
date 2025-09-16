@@ -82,6 +82,25 @@ CREATE TABLE audit_logs (
     FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE SET NULL
 );
 
+-- Create terminal reports table
+CREATE TABLE terminal_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    org_id INT NOT NULL,
+    semester VARCHAR(50) NOT NULL,
+    academic_year VARCHAR(20) NOT NULL,
+    activities_summary TEXT,
+    achievements TEXT,
+    challenges TEXT,
+    recommendations TEXT,
+    financial_summary TEXT,
+    status ENUM('draft', 'submitted', 'approved', 'needs_revision') DEFAULT 'draft',
+    created_by INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+);
+
 -- Insert initial data
 INSERT INTO organizations (name, code, description) VALUES 
 ('Computer Science Society', 'CSS', 'Student organization for Computer Science students'),

@@ -12,7 +12,28 @@ if (!$org_id) {
     $error = "You must be assigned to an organization to submit terminal reports.";
 }
 
+// Ensure terminal_reports table exists
+$createTable = "CREATE TABLE IF NOT EXISTS terminal_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    org_id INT NOT NULL,
+    semester VARCHAR(50) NOT NULL,
+    academic_year VARCHAR(20) NOT NULL,
+    activities_summary TEXT,
+    achievements TEXT,
+    challenges TEXT,
+    recommendations TEXT,
+    financial_summary TEXT,
+    status ENUM('draft', 'submitted', 'approved', 'needs_revision') DEFAULT 'draft',
+    created_by INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (org_id) REFERENCES organizations(id),
+    FOREIGN KEY (created_by) REFERENCES users(id)
+)";
+$conn->exec($createTable);
+
 // Get existing terminal reports
+$reports = [];
 if ($org_id) {
     $sql = "SELECT * FROM terminal_reports WHERE org_id = ? ORDER BY created_at DESC";
     $stmt = $conn->prepare($sql);
@@ -29,25 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $recommendations = trim($_POST['recommendations']);
     $financial_summary = trim($_POST['financial_summary']);
     
-    // Check if terminal_reports table exists, if not create it
-    $createTable = "CREATE TABLE IF NOT EXISTS terminal_reports (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        org_id INT NOT NULL,
-        semester VARCHAR(50) NOT NULL,
-        academic_year VARCHAR(20) NOT NULL,
-        activities_summary TEXT,
-        achievements TEXT,
-        challenges TEXT,
-        recommendations TEXT,
-        financial_summary TEXT,
-        status ENUM('draft', 'submitted', 'approved', 'needs_revision') DEFAULT 'draft',
-        created_by INT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (org_id) REFERENCES organizations(id),
-        FOREIGN KEY (created_by) REFERENCES users(id)
-    )";
-    $conn->exec($createTable);
+    
     
     $sql = "INSERT INTO terminal_reports (org_id, semester, academic_year, activities_summary, achievements, challenges, recommendations, financial_summary, created_by) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
