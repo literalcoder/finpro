@@ -56,7 +56,7 @@ function logout() {
     exit();
 }
 
-function register($name, $email, $password, $role = 'president', $org_name = null) {
+function register($name, $email, $password, $role = 'president', $org_id = null) {
     global $conn;
     
     // Check if email already exists
@@ -72,15 +72,12 @@ function register($name, $email, $password, $role = 'president', $org_name = nul
         $role = 'president'; // Default to safe role
     }
     
-    // Find organization ID by name if provided
-    $org_id = null;
-    if ($org_name) {
+    // If org_id is a string (organization name), find the ID
+    if ($org_id && !is_numeric($org_id)) {
         $stmt = $conn->prepare("SELECT id FROM organizations WHERE name = ? OR code = ? LIMIT 1");
-        $stmt->execute([$org_name, $org_name]);
+        $stmt->execute([$org_id, $org_id]);
         $org = $stmt->fetch();
-        if ($org) {
-            $org_id = $org['id'];
-        }
+        $org_id = $org ? $org['id'] : null;
     }
     
     // Hash password securely
