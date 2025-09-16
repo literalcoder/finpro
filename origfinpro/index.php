@@ -1,3 +1,4 @@
+
 <?php
 // index.php - Entry point for OrgFinPro application
 include 'functions.php';
@@ -9,10 +10,6 @@ if (isLoggedIn()) {
 }
 
 // Otherwise, redirect to login page
-header("Location: login.php");
-exit();
-?>
-<?php
 header("Location: login.php");
 exit();
 ?>
