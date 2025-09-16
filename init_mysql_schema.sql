@@ -1,7 +1,7 @@
 
 -- Create database
-CREATE DATABASE IF NOT EXISTS orgfinpro CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE orgfinpro;
+CREATE DATABASE IF NOT EXISTS origfinpro CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE origfinpro;
 
 -- Drop existing tables if they exist to avoid conflicts
 DROP TABLE IF EXISTS audit_logs;

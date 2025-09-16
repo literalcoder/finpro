@@ -7,7 +7,7 @@ channel = "stable-25_05"
 packages = ["sqlite", "mysql84"]
 
 [workflows]
-runButton = "Project"
+runButton = "Setup and Run"
 
 [[workflows.workflow]]
 name = "Project"
@@ -74,6 +74,39 @@ args = "mysql -S /tmp/mysql.sock -e \"CREATE DATABASE IF NOT EXISTS origfinpro;\
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "mysql -S /tmp/mysql.sock origfinpro < origfinpro/init_mysql_schema.sql"
+
+[[workflows.workflow]]
+name = "Setup and Run"
+author = 47641685
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mkdir -p /tmp/mysql"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysqld --initialize-insecure --datadir=/tmp/mysql --user=$(whoami)"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysqld --datadir=/tmp/mysql --socket=/tmp/mysql.sock --port=3306 --skip-networking --pid-file=/tmp/mysql.pid &"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "sleep 10"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysql -S /tmp/mysql.sock -e \"CREATE DATABASE IF NOT EXISTS origfinpro;\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysql -S /tmp/mysql.sock origfinpro < init_mysql_schema.sql"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "php -S 0.0.0.0:5000 -t origfinpro"
 
 [[ports]]
 localPort = 5000
