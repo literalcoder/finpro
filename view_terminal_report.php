@@ -66,7 +66,7 @@ $status_colors = [
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4><?php echo escape($report['semester']); ?> - <?php echo escape($report['academic_year']); ?></h4>
-                    <span class="badge bg-<?php echo $status_colors[$report['status']] ?? 'secondary'; ?> fs-6">
+                    <span class="badge bg-<?php echo $status_colors[$report['status']] ?? 'secondary'; ?> text-black fs-6">
                         <?php echo ucfirst(str_replace('_', ' ', $report['status'])); ?>
                     </span>
                 </div>
@@ -74,7 +74,7 @@ $status_colors = [
             <div class="card-body">
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <table class="table table-sm">
+                        <table class=" bg-transparent table-sm">
                             <tr>
                                 <td><strong>Submitted By:</strong></td>
                                 <td><?php echo escape($report['created_by_name']); ?></td>
@@ -93,27 +93,27 @@ $status_colors = [
 
                 <div class="mt-4">
                     <h5>Activities Summary</h5>
-                    <div class="bg-light p-3 rounded mb-4">
+                    <div class="p-3 rounded mb-4">
                         <?php echo nl2br(escape($report['activities_summary'])); ?>
                     </div>
 
                     <h5>Key Achievements</h5>
-                    <div class="bg-light p-3 rounded mb-4">
+                    <div class="p-3 rounded mb-4">
                         <?php echo nl2br(escape($report['achievements'])); ?>
                     </div>
 
                     <h5>Challenges Faced</h5>
-                    <div class="bg-light p-3 rounded mb-4">
+                    <div class="p-3 rounded mb-4">
                         <?php echo nl2br(escape($report['challenges'])); ?>
                     </div>
 
                     <h5>Recommendations</h5>
-                    <div class="bg-light p-3 rounded mb-4">
+                    <div class="p-3 rounded mb-4">
                         <?php echo nl2br(escape($report['recommendations'])); ?>
                     </div>
 
                     <h5>Financial Summary</h5>
-                    <div class="bg-light p-3 rounded">
+                    <div class="p-3 rounded">
                         <?php echo nl2br(escape($report['financial_summary'])); ?>
                     </div>
                 </div>

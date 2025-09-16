@@ -3,13 +3,13 @@
 $user_name = $_SESSION['name'] ?? 'User';
 $user_role = ucfirst($_SESSION['role'] ?? '');
 ?>
-<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white text-black border-bottom mb-4">
+<nav class="navbar navbar-expand-lg fixed-top bg-white text-white shadow-sm mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="dashboard.php">OrgFinPro</a>
+        <a class="navbar-brand nav" href="dashboard.php">OrgFinPro</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse nav" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="dashboard.php">Dashboard</a>

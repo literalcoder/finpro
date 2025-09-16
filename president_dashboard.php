@@ -71,7 +71,7 @@ $recent_proposals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body class="bg-light">
 <?php include 'nav.php'; ?>
-<div class="container mt-4 pb-4">
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="bi bi-speedometer2"></i> <?php echo escape($org['name']); ?> Dashboard</h2>
         <div>

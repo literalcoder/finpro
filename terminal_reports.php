@@ -118,7 +118,7 @@ if ($org_id) {
                                             ];
                                             $color = $status_colors[$report['status']] ?? 'secondary';
                                             ?>
-                                            <span class="badge bg-<?php echo $color; ?>"><?php echo ucfirst(str_replace('_', ' ', $report['status'])); ?></span>
+                                            <span class="badge bg-<?php echo $color; ?> text-black"><?php echo ucfirst(str_replace('_', ' ', $report['status'])); ?></span>
                                         </td>
                                         <td><?php echo date('M j, Y', strtotime($report['created_at'])); ?></td>
                                         <td>

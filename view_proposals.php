@@ -88,7 +88,7 @@ $proposals = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td>
                       <strong><?php echo escape($proposal['title']); ?></strong>
                       <br>
-                      <small class="text-muted"><?php echo escape(substr($proposal['description'], 0, 50)) . (strlen($proposal['description']) > 50 ? '...' : ''); ?></small>
+                      <small class="text-black"><?php echo escape(substr($proposal['description'], 0, 50)) . (strlen($proposal['description']) > 50 ? '...' : ''); ?></small>
                     </td>
                     <td><span class="badge bg-info"><?php echo ucfirst(str_replace('_', ' ', $proposal['type'])); ?></span></td>
                     <?php if (hasRole('admin')): ?>

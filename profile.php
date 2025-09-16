@@ -72,9 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                     <?php endif; ?>
 
                     <div class="row mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md-6 bg-transparent">
                             <h5>Account Information</h5>
-                            <table class="table table-sm">
+                            <table class="table table-sm bg-transparent">
                                 <tr>
                                     <td><strong>Name:</strong></td>
                                     <td><?php echo escape($user['name']); ?></td>
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                                     <label class="form-label">New Password</label>
                                     <input type="password" name="new_password" class="form-control" 
                                            minlength="8" required>
-                                    <div class="form-text">Password must be at least 8 characters long</div>
+                                    <div class="form-text text-white">Password must be at least 8 characters long</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Confirm New Password</label>

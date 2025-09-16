@@ -1,3 +1,170 @@
+/* 🌐 Global Background */
 body {
     padding-top: 73px;
+    background: linear-gradient(200deg, #1e3b7288, #2a5298);
+    color: white !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh !important;
+}
+
+span {
+    color: #ffcc00 !important;
+}
+
+.text-muted {
+    color: white !important;
+}
+
+option {
+    background-color: #1e3c72 !important;
+    color: white !important;
+}
+option:hover {
+    background-color: #2a5298 !important;
+}
+
+
+/* 🔽 Fix native select dropdown */
+.form-select option {
+    background-color: #1e3c72 !important; /* solid fallback */
+    color: white !important;
+}
+
+.form-select option:checked {
+    background-color: #2a5298 !important;
+}
+
+.container {
+    height: 100vh;
+}
+
+/* 🟦 Navbar */
+nav.navbar {
+    background: linear-gradient(135deg, #1e3c72, #14346b) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+nav.navbar .navbar-brand,
+nav.navbar .nav-link {
+    color: #ffffff !important;
+}
+
+nav.navbar .nav-link:hover {
+    color: #ffcc00 !important;
+}
+
+/* 🟩 Cards, Modals, Dropdowns */
+.card,
+.modal-content,
+.dropdown-menu {
+    background: linear-gradient(135deg, #1e3c72, #2a5298) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 🟨 Tables */
+.table {
+    background: linear-gradient(135deg, #1e3c72, #2a5298) !important;
+    color: white !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.table tbody tr {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 📝 Forms */
+.form-control,
+textarea,
+.form-select {
+    background: linear-gradient(135deg, #4172cdac, #2a5db5) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: linear-gradient(135deg, #2a5298, #1e3c72) !important;
+    color: white !important;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* 🔽 Fix Select Arrow (white) */
+.form-select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'><path d='M3.3 5.3a1 1 0 011.4 0L8 8.6l3.3-3.3a1 1 0 011.4 1.4l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 010-1.4z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 1rem !important;
+}
+
+/* 🔘 Buttons */
+.btn {
+    background: linear-gradient(135deg, #1e3c72, #072a65) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #2a5298, #1e3c72) !important;
+    transform: scale(1.03) !important;
+}
+
+/* 📂 Dropdown Items */
+.dropdown-menu .dropdown-item {
+    color: white !important;
+    background: transparent !important;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #ffcc00 !important;
+}
+
+/* 🖱️ Scrollbars (Webkit Browsers) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.3); /* makes it look inset */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+}
+
+/* 🦊 Scrollbar for Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #2a5298 rgba(255, 255, 255, 0.1);
 }
