@@ -1,8 +1,8 @@
 
 <?php
 // MySQL Database Configuration
-$host = 'localhost';
-$dbname = 'orgfinpro';
+$host = '127.0.0.1';
+$dbname = 'origfinpro';
 $username = 'root';
 $password = '';
 
