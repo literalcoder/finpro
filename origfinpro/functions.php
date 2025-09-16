@@ -1,11 +1,19 @@
-<?php
-// Set secure session configuration
-ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
-ini_set('session.cookie_samesite', 'Lax');
 
-session_start();
+<?php
+// Start output buffering to prevent headers already sent issues
+ob_start();
+
+// Only set session configuration if session hasn't started yet
+if (session_status() == PHP_SESSION_NONE) {
+    // Set secure session configuration
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
+    ini_set('session.cookie_samesite', 'Lax');
+    
+    session_start();
+}
+
 include 'db.php';
 
 function isLoggedIn() {
