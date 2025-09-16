@@ -24,7 +24,23 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mysqld & php -S 0.0.0.0:5000 -t origfinpro"
+args = "mkdir -p /tmp/mysql && mysql_install_db --datadir=/tmp/mysql --user=$(whoami) && mysqld_safe --datadir=/tmp/mysql --socket=/tmp/mysql.sock --port=3306 --skip-networking &"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "sleep 5"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysql -S /tmp/mysql.sock -e 'CREATE DATABASE IF NOT EXISTS origfinpro;'"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mysql -S /tmp/mysql.sock origfinpro < origfinpro/init_mysql_schema.sql"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "php -S 0.0.0.0:5000 -t origfinpro"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
