@@ -2,22 +2,23 @@
 include 'functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name     = trim($_POST['name']);
-    $email    = trim($_POST['email']);
-    $password = $_POST['password'];
-    $role     = $_POST['role'];
-    $org      = $_POST['organization'] ?? null;
+  $name     = trim($_POST['name']);
+  $email    = trim($_POST['email']);
+  $password = $_POST['password'];
+  $role     = $_POST['role'];
+  $org      = $_POST['organization'] ?? null;
 
-    if (register($name, $email, $password, $role, $org)) {
-        header("Location: login.php?registered=1");
-        exit();
-    } else {
-        $error = "Registration failed. Email might already exist.";
-    }
+  if (register($name, $email, $password, $role, $org)) {
+    header("Location: login.php?registered=1");
+    exit();
+  } else {
+    $error = "Registration failed. Email might already exist.";
+  }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,20 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       justify-content: center;
       align-items: center;
     }
+
     .register-card {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 15px;
       padding: 2rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       width: 100%;
       max-width: 450px;
     }
   </style>
 </head>
+
 <body>
   <div class="register-card">
     <h3 class="text-center mb-3">Create Account</h3>
-    <?php if(isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+    <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
     <form method="POST">
       <div class="mb-3">
         <input type="text" class="form-control" name="name" placeholder="Full Name" required>
@@ -67,7 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
       </div>
       <div class="mb-3">
-        <input type="text" class="form-control" name="organization" placeholder="Organization (if applicable)">
+        <!-- You’ll need to fetch organizations from the database in PHP -->
+        <select class="form-control" name="organization">
+          <option value="">-- No Organization --</option>
+          <option value="1">Computer Science Society</option>
+          <option value="2">Business Administration Club</option>
+        </select>
+
       </div>
       <button class="btn btn-primary w-100">Register</button>
     </form>
@@ -76,4 +85,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
 </body>
+
 </html>

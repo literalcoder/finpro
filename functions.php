@@ -9,24 +9,27 @@ if (session_status() == PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
     ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
     ini_set('session.cookie_samesite', 'Lax');
-    
+
     session_start();
 }
 
 include 'db.php';
 
-function isLoggedIn() {
+function isLoggedIn()
+{
     return isset($_SESSION['user_id']);
 }
 
-function requireLogin() {
+function requireLogin()
+{
     if (!isLoggedIn()) {
         header("Location: login.php");
         exit();
     }
 }
 
-function login($email, $password) {
+function login($email, $password)
+{
     global $conn;
     $sql = "SELECT * FROM users WHERE email=? LIMIT 1";
     $stmt = $conn->prepare($sql);
@@ -46,83 +49,98 @@ function login($email, $password) {
     return false;
 }
 
-function logout() {
+function logout()
+{
     $_SESSION = [];
     if (isset($_COOKIE[session_name()])) {
-        setcookie(session_name(), '', time()-3600, '/');
+        setcookie(session_name(), '', time() - 3600, '/');
     }
     session_destroy();
     header("Location: login.php");
     exit();
 }
 
-function register($name, $email, $password, $role = 'president', $org_id = null) {
+function register($name, $email, $password, $role = 'president', $org_id = null)
+{
     global $conn;
-    
+
     // Check if email already exists
     $stmt = $conn->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {
         return false; // Email already exists
     }
-    
+
     // Server-side role validation - prevent privilege escalation
     $allowedRoles = ['president', 'treasurer', 'auditor', 'adviser', 'dean', 'ssc', 'admin'];
     if (!in_array($role, $allowedRoles)) {
         $role = 'president'; // Default to safe role
     }
-    
+
     // If org_id is a string (organization name), find the ID
     if ($org_id && !is_numeric($org_id)) {
         $stmt = $conn->prepare("SELECT id FROM organizations WHERE name = ? OR code = ? LIMIT 1");
         $stmt->execute([$org_id, $org_id]);
         $org = $stmt->fetch();
-        $org_id = $org ? $org['id'] : null;
+        $org_id = $org ? $org['id'] : '';
     }
-    
+
+    // ✅ Convert empty org_id to NULL to avoid foreign key errors
+    if (empty($org_id)) {
+        $org_id = '';
+    }
+
     // Hash password securely
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    
+
     $sql = "INSERT INTO users (name, email, password, role, org_id) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    
+
     return $stmt->execute([$name, $email, $hashedPassword, $role, $org_id]);
 }
 
+
 // CSRF protection functions
-function generateCSRFToken() {
+function generateCSRFToken()
+{
     if (!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['csrf_token'];
 }
 
-function validateCSRFToken($token) {
+function validateCSRFToken($token)
+{
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
 
 // Output escaping function
-function escape($string) {
+function escape($string)
+{
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
 // Role-based access control
-function hasRole($role) {
+function hasRole($role)
+{
     return isset($_SESSION['role']) && $_SESSION['role'] === $role;
 }
 
-function hasAnyRole($roles) {
+function hasAnyRole($roles)
+{
     return isset($_SESSION['role']) && in_array($_SESSION['role'], $roles);
 }
 
-function requireRole($role) {
+function requireRole($role)
+{
     if (!hasRole($role)) {
         http_response_code(403);
         die("Access denied. Insufficient privileges.");
     }
 }
 
-function requireAnyRole($roles) {
+function requireAnyRole($roles)
+{
     if (!hasAnyRole($roles)) {
         http_response_code(403);
         die("Access denied. Insufficient privileges.");
@@ -130,14 +148,15 @@ function requireAnyRole($roles) {
 }
 
 // Organization scoping
-function getOrganizationId() {
+function getOrganizationId()
+{
     return isset($_SESSION['org_id']) ? $_SESSION['org_id'] : null;
 }
 
-function requireOrganization() {
+function requireOrganization()
+{
     if (!getOrganizationId() && !hasRole('admin')) {
         http_response_code(403);
         die("Access denied. Organization context required.");
     }
 }
-?>
