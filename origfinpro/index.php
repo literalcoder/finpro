@@ -1,4 +1,3 @@
-
 <?php
 // index.php - Entry point for OrgFinPro application
 include 'functions.php';
